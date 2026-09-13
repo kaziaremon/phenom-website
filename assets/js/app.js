@@ -501,38 +501,67 @@ function openConsultationModal(prefillNote = '') {
 }
 
 /* ==========================================================================
-   7. THEME TOGGLE (LIGHT / DARK)
+   7. THEME TOGGLE (LIGHT / DARK SWITCHER)
    ========================================================================== */
 function initThemeToggle() {
-  const themeToggleBtn = document.getElementById('themeToggleBtn');
   const storedTheme = localStorage.getItem('phenom-theme') || 'light';
+
+  const pillLightElements = [
+    document.getElementById('pillLight'),
+    document.getElementById('mobilePillLight'),
+    document.getElementById('floatPillLight')
+  ].filter(Boolean);
+
+  const pillDarkElements = [
+    document.getElementById('pillDark'),
+    document.getElementById('mobilePillDark'),
+    document.getElementById('floatPillDark')
+  ].filter(Boolean);
 
   function applyTheme(theme) {
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
-      if (themeToggleBtn) {
-        themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-        themeToggleBtn.setAttribute('title', 'Switch to Light Theme');
-      }
+      pillLightElements.forEach(el => el.classList.remove('active'));
+      pillDarkElements.forEach(el => el.classList.add('active'));
     } else {
       document.documentElement.removeAttribute('data-theme');
-      if (themeToggleBtn) {
-        themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-        themeToggleBtn.setAttribute('title', 'Switch to Dark Theme');
-      }
+      pillLightElements.forEach(el => el.classList.add('active'));
+      pillDarkElements.forEach(el => el.classList.remove('active'));
     }
     localStorage.setItem('phenom-theme', theme);
   }
 
-  // Apply default light theme or stored preference
+  // Initialize theme
   applyTheme(storedTheme);
 
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
+  // Click handlers on pill options
+  pillLightElements.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTheme('light');
     });
-  }
+  });
+
+  pillDarkElements.forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applyTheme('dark');
+    });
+  });
+
+  // Toggle on pill container click
+  const pillContainers = [
+    document.getElementById('themeTogglePill'),
+    document.getElementById('mobileThemeTogglePill'),
+    document.getElementById('floatPill')
+  ].filter(Boolean);
+
+  pillContainers.forEach(container => {
+    container.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      applyTheme(isDark ? 'light' : 'dark');
+    });
+  });
 }
+
 

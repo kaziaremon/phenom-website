@@ -76,9 +76,10 @@
 
       <!-- CTA Button & Hamburger -->
       <div class="nav-actions">
-        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Light and Dark Mode" title="Toggle Light/Dark Theme">
-          <i class="fa-solid fa-moon"></i>
-        </button>
+        <div class="theme-toggle-pill" id="themeTogglePill" title="Switch between Light and Dark mode" role="button" tabindex="0">
+          <span class="theme-pill-option active" id="pillLight"><i class="fa-solid fa-sun"></i> Light</span>
+          <span class="theme-pill-option" id="pillDark"><i class="fa-solid fa-moon"></i> Dark</span>
+        </div>
         <button type="button" class="btn btn-primary btn-sm btn-book-consult">
           <i class="fa-regular fa-calendar-check"></i> Book Free Consultation
         </button>
@@ -97,6 +98,12 @@
     <div>
       <div class="brand-logo-container" style="margin-bottom: 2rem;">
         <img src="./assets/images/logo.png" alt="Phenom Consultants" class="brand-logo-img" style="height: 40px;">
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <div class="theme-toggle-pill" id="mobileThemeTogglePill" style="width: 100%; justify-content: center;">
+          <span class="theme-pill-option active" id="mobilePillLight" style="flex: 1; justify-content: center;"><i class="fa-solid fa-sun"></i> Light</span>
+          <span class="theme-pill-option" id="mobilePillDark" style="flex: 1; justify-content: center;"><i class="fa-solid fa-moon"></i> Dark</span>
+        </div>
       </div>
       <ul class="mobile-nav-list">
         <li><a href="#home" class="mobile-nav-link">Home</a></li>
@@ -1239,8 +1246,15 @@
   </div>
 
   <!-- ==========================================================================
-       FLOATING WHATSAPP BUTTON
+       FLOATING THEME SWITCHER & FLOATING WHATSAPP BUTTON
        ========================================================================== -->
+  <div class="floating-theme-toggle" id="floatingThemeToggle" title="Toggle Light / Dark Mode">
+    <div class="theme-toggle-pill" id="floatPill">
+      <span class="theme-pill-option active" id="floatPillLight"><i class="fa-solid fa-sun"></i> Light</span>
+      <span class="theme-pill-option" id="floatPillDark"><i class="fa-solid fa-moon"></i> Dark</span>
+    </div>
+  </div>
+
   <a href="https://wa.me/8801700000000?text=Hi%20Phenom%20Consultants,%20I%20would%20like%20to%20know%20more%20about%20studying%20abroad." target="_blank" class="floating-whatsapp" aria-label="Chat on WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
   </a>
