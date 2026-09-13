@@ -4,6 +4,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
   initNavbar();
   initDestinationFilter();
   initDestinationModals();
@@ -498,3 +499,40 @@ function openConsultationModal(prefillNote = '') {
   }
   consultModal.classList.add('open');
 }
+
+/* ==========================================================================
+   7. THEME TOGGLE (LIGHT / DARK)
+   ========================================================================== */
+function initThemeToggle() {
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  const storedTheme = localStorage.getItem('phenom-theme') || 'light';
+
+  function applyTheme(theme) {
+    if (theme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      if (themeToggleBtn) {
+        themeToggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        themeToggleBtn.setAttribute('title', 'Switch to Light Theme');
+      }
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if (themeToggleBtn) {
+        themeToggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+        themeToggleBtn.setAttribute('title', 'Switch to Dark Theme');
+      }
+    }
+    localStorage.setItem('phenom-theme', theme);
+  }
+
+  // Apply default light theme or stored preference
+  applyTheme(storedTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+    });
+  }
+}
+
